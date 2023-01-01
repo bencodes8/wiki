@@ -29,16 +29,22 @@ def create(request):
         form = NewCreateForm(request.POST)
         if form.is_valid():
             new_entry = form.cleaned_data
-            print(util.list_entries())
+            
             for entry in util.list_entries():
+                print(entry)
                 if entry.lower() == new_entry["page"].lower():
+                    print('unsucessful')
                     return render(request, "encyclopedia/create.html", {
                         "page": new_entry["page"],
                         "error": True
                     })
-                else:
-                    util.save_entry(new_entry["page"], new_entry["description"])
-                    
+
+            util.save_entry(new_entry["page"], new_entry["description"])
+            print('successful')
+            return render(request, "encyclopedia/entry.html", {
+                "info": util.get_entry(new_entry["description"]),
+                "title": util.get_entry(new_entry["page"])
+            })
                     
     return render(request, "encyclopedia/create.html", {
         "form": NewCreateForm()
