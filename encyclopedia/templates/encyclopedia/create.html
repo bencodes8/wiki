@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+
+{% if error %}
+<h2 class="alert alert-danger" style="width: 50%;"> The page titled <span style="color: #077bff"> {{ page }}</span> already exists.</h2>
+{% endif %}
+
+<h1>Create New Page</h1>
+
+
+<form action="{% url 'encyclopedia:create' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}
