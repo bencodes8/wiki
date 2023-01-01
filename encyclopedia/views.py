@@ -16,9 +16,9 @@ def index(request):
             if entry.lower().find(request.POST["q"].lower()) != -1:
                 index = util.list_entries().index(entry)
                 found += [util.list_entries()[index]]
-                return render(request, "encyclopedia/index.html", {
-                    "entries": found
-                })
+        return render(request, "encyclopedia/index.html", {
+            "entries": found
+        })
     
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()  
