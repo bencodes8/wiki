@@ -31,16 +31,12 @@ def create(request):
             new_entry = form.cleaned_data
             
             for entry in util.list_entries():
-                print(entry)
                 if entry.lower() == new_entry["page"].lower():
-                    print('unsucessful')
                     return render(request, "encyclopedia/create.html", {
                         "page": new_entry["page"],
                         "error": True
                     })
-
             util.save_entry(new_entry["page"], new_entry["description"])
-            print('successful')
             return render(request, "encyclopedia/entry.html", {
                 "info": util.get_entry(new_entry["description"]),
                 "title": util.get_entry(new_entry["page"])
