@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django import forms
 
@@ -33,14 +33,12 @@ def create(request):
             for entry in util.list_entries():
                 if entry.lower() == new_entry["page"].lower():
                     return render(request, "encyclopedia/create.html", {
+                        "form": NewCreateForm(),
                         "page": new_entry["page"],
                         "error": True
                     })
             util.save_entry(new_entry["page"], new_entry["description"])
-            return render(request, "encyclopedia/entry.html", {
-                "info": util.get_entry(new_entry["page"]),
-                "title": new_entry["page"]
-            })
+            return redirect(f'/wiki/{new_entry["page"]}')
                     
     return render(request, "encyclopedia/create.html", {
         "form": NewCreateForm()
