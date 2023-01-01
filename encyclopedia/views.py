@@ -38,8 +38,8 @@ def create(request):
                     })
             util.save_entry(new_entry["page"], new_entry["description"])
             return render(request, "encyclopedia/entry.html", {
-                "info": util.get_entry(new_entry["description"]),
-                "title": util.get_entry(new_entry["page"])
+                "info": util.get_entry(new_entry["page"]),
+                "title": new_entry["page"]
             })
                     
     return render(request, "encyclopedia/create.html", {
