@@ -12,10 +12,15 @@ h1 {
     padding-top: 20px;
 }
 
+#error {
+    color: red;
+}
+
 textarea {
     height: 90vh;
     width: 80%;
 }
+
 
 .main {
     padding: 10px;
