@@ -9,12 +9,9 @@
 <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
 {% block body %}
 
-    {% if url_error %}
     <h1 id="error">Error 404.</h1>
+    <h2 class="alert alert-danger" style="width: 50%;"> The requested URL <span class="url">/{{title}}</span> was not found.</h2>
 
-    <h2 class="alert alert-danger" style="width: 50%;"> The requested URL <span style="color: #077bff">/{{title}}</span> was not found.</h2>
-
-    {% endif %}
 
 {% endblock %}
 
