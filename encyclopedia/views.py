@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django import forms
 import random
 
@@ -36,7 +37,6 @@ def search(request, title):
         })
     else:
         return render(request, "encyclopedia/error.html", {
-            "url_error": True,
             "title": title
         })
 
@@ -54,7 +54,7 @@ def create(request):
                         "error": True
                     })
             util.save_entry(new_entry["page"], new_entry["description"])
-            return redirect(f'/wiki/{new_entry["page"]}')
+            return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": new_entry["page"]}))
                     
     return render(request, "encyclopedia/create.html", {
         "form": NewCreateForm()
@@ -65,14 +65,14 @@ def edit(request, title):
         form = EditForm(request.POST)
         if form.is_valid():
             edited_page = form.cleaned_data
-            print(edited_page["new_description"])
             util.save_entry(title, edited_page["new_description"])
-            return redirect(f'/wiki/{title}')
+            return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": title}))
             
     return render(request, "encyclopedia/edit.html", {
         "title": title,
         "form": EditForm({'new_description': util.get_entry(title)})
     })
+
 
 
         
