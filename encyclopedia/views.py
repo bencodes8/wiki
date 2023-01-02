@@ -55,8 +55,7 @@ def create(request):
                         "error": True
                     })
             util.save_entry(new_entry["page"], new_entry["description"])
-            return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": new_entry["page"]}))
-                    
+            return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": new_entry["page"]}))     
     return render(request, "encyclopedia/create.html", {
         "form": NewCreateForm()
     })
@@ -68,7 +67,6 @@ def edit(request, title):
             edited_page = form.cleaned_data
             util.save_entry(title, edited_page["new_description"])
             return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": title}))
-            
     return render(request, "encyclopedia/edit.html", {
         "title": title,
         "form": EditForm({'new_description': util.get_entry(title)})
