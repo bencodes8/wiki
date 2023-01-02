@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
 from random import choice
+import markdown2
 
 from . import util
 
@@ -32,7 +33,7 @@ def index(request):
 def search(request, title):
     if util.get_entry(title) is not None:
         return render(request, "encyclopedia/entry.html", {
-            "info": util.get_entry(title),
+            "info": markdown2.markdown(util.get_entry(title)),
             "title": title
         })
     else:
