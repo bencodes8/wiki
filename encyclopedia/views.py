@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django import forms
-import random
+from random import choice
 
 from . import util
 
@@ -26,7 +26,7 @@ def index(request):
     
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries(),
-        "random": random.choices(util.list_entries()).pop()
+        "random" : choice(util.list_entries())
     })
 
 def search(request, title):
@@ -73,7 +73,8 @@ def edit(request, title):
         "form": EditForm({'new_description': util.get_entry(title)})
     })
 
-
+def random(request):
+    return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={"title": choice(util.list_entries())}))
 
         
     
